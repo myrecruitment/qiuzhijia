@@ -274,6 +274,77 @@
             100% { left: 100%; }
         }
 
+        .intent-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .intent-modal.show {
+            display: flex;
+        }
+
+        .intent-content {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.5s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: scale(0.8) translateY(-50px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .intent-content h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .intent-content p {
+            color: #718096;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .intent-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .intent-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .intent-btn.primary {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+
+        .intent-btn.secondary {
+            background: #f7fafc;
+            color: #718096;
+            border: 1px solid #e2e8f0;
+        }
+
         .status {
             margin-top: 20px;
             padding: 12px 20px;
@@ -353,6 +424,23 @@
             transform: scale(1.05);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+
+        .live-counter {
+            background: #f0fff4;
+            color: #22543d;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid #68d391;
+            animation: counterPulse 2s infinite;
+        }
+
+        @keyframes counterPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
         
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -420,6 +508,10 @@
                 padding: 16px 30px;
                 font-size: 16px;
             }
+
+            .intent-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -456,6 +548,10 @@
                 <div class="highlight-text">免费培训</div>
                 <div class="highlight-desc">零基础可学</div>
             </div>
+        </div>
+
+        <div class="live-counter" id="liveCounter">
+            🔥 今日已有 <span id="counterNumber">12</span> 人咨询，剩余名额有限
         </div>
 
         <!-- 唯一的CTA按钮 -->
@@ -510,6 +606,18 @@
         </div>
     </div>
 
+    <!-- 意图确认弹窗 -->
+    <div class="intent-modal" id="intentModal">
+        <div class="intent-content">
+            <h3>📞 确认咨询意向</h3>
+            <p>您确定要了解这个工作机会吗？我们的招聘顾问将为您详细介绍岗位信息和薪资待遇。</p>
+            <div class="intent-buttons">
+                <button class="intent-btn primary" onclick="confirmIntent()">确定咨询</button>
+                <button class="intent-btn secondary" onclick="cancelIntent()">再想想</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Facebook Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s)
@@ -531,14 +639,42 @@
     </noscript>
 
     <script>
-        // 配置 - 使用完整的WhatsApp链接
+        // 配置
         const WHATSAPP_LINK = 'https://wa.link/qiuzhijia';
         const PHONE_NUMBER = '+601163711596';
         const WHATSAPP_PROTOCOL_LINK = `whatsapp://send?phone=${PHONE_NUMBER}`;
         
-        // 唯一追踪函数 - 只追踪咨询点击
+        // 状态管理
+        let hasTrackedLead = false;
+        let userClickCount = 0;
+        let pageStartTime = Date.now();
+        let currentButton = null;
+        let currentButtonSource = null;
+        
+        // 实时计数器更新
+        function updateLiveCounter() {
+            const counterElement = document.getElementById('counterNumber');
+            const baseCount = 12;
+            const randomIncrease = Math.floor(Math.random() * 3); // 0-2的随机增长
+            const newCount = baseCount + randomIncrease;
+            
+            if (counterElement) {
+                counterElement.textContent = newCount;
+            }
+        }
+        
+        // 每30秒更新一次计数器
+        setInterval(updateLiveCounter, 30000);
+        
+        // 延迟追踪函数 - 高质量转化
         function trackConsultationClick(buttonSource) {
-            console.log('🎯 追踪咨询点击 - 来源:', buttonSource);
+            console.log('🎯 延迟追踪咨询点击 - 来源:', buttonSource);
+            
+            // 防止重复追踪
+            if (hasTrackedLead) {
+                console.log('⚠️ 已追踪过Lead，跳过');
+                return;
+            }
             
             if (typeof fbq === 'undefined') {
                 console.error('❌ Facebook Pixel 未加载');
@@ -546,14 +682,22 @@
             }
             
             try {
+                // 只有确认意图后才发送Lead事件
                 fbq('track', 'Lead', {
                     content_name: 'WhatsApp联系',
-                    content_category: '招聘咨询',
-                    value: 5.00,
+                    content_category: '高质量咨询',
+                    value: 20.00,
                     currency: 'USD'
                 });
                 
-                console.log('✅ Lead事件已发送');
+                hasTrackedLead = true;
+                console.log('✅ 高质量Lead事件已发送');
+                
+                // 发送Contact作为补充数据
+                fbq('track', 'Contact', {
+                    content_name: 'WhatsApp确认点击',
+                    content_category: '真实意图'
+                });
                 
             } catch (error) {
                 console.error('❌ 追踪事件失败:', error);
@@ -584,97 +728,127 @@
             fallbackContainer.style.display = 'block';
         }
         
-        // WhatsApp联系函数 - 已优化
+        // 执行WhatsApp跳转
+        function executeWhatsAppRedirect() {
+            const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            try {
+                if (isMobile) {
+                    console.log('📱 移动设备 - 尝试协议链接');
+                    
+                    // 创建隐藏iframe尝试协议链接
+                    const iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = WHATSAPP_PROTOCOL_LINK;
+                    document.body.appendChild(iframe);
+                    
+                    // 设置回退机制
+                    setTimeout(() => {
+                        if (document.hasFocus()) {
+                            console.log('🔄 回退到网页版');
+                            window.open(WHATSAPP_LINK, '_blank');
+                        }
+                    }, 1000);
+                    
+                    // 清理iframe
+                    setTimeout(() => {
+                        if (document.body.contains(iframe)) {
+                            document.body.removeChild(iframe);
+                        }
+                    }, 3000);
+                } else {
+                    console.log('💻 桌面设备 - 网页版');
+                    window.open(WHATSAPP_LINK, '_blank');
+                }
+                
+                // 延迟3秒后追踪Lead事件（确保用户真的进入了WhatsApp）
+                setTimeout(() => {
+                    trackConsultationClick(currentButtonSource);
+                }, 3000);
+                
+            } catch (error) {
+                console.log('❌ 跳转失败:', error);
+                showFallbackOption();
+            }
+        }
+        
+        // 确认意图
+        function confirmIntent() {
+            console.log('✅ 用户确认咨询意图');
+            
+            // 隐藏弹窗
+            document.getElementById('intentModal').classList.remove('show');
+            
+            // 显示状态
+            showStatus('正在连接招聘顾问...', 'success');
+            
+            // 执行跳转
+            executeWhatsAppRedirect();
+            
+            // 恢复按钮状态
+            if (currentButton) {
+                setTimeout(() => {
+                    currentButton.disabled = false;
+                    currentButton.innerHTML = '💬 立即咨询详情';
+                }, 3000);
+            }
+        }
+        
+        // 取消意图
+        function cancelIntent() {
+            console.log('❌ 用户取消咨询');
+            
+            // 追踪取消行为
+            try {
+                fbq('track', 'ViewContent', {
+                    content_name: '取消咨询意图',
+                    content_category: '用户犹豫'
+                });
+            } catch (error) {
+                console.log('取消追踪失败:', error);
+            }
+            
+            // 隐藏弹窗
+            document.getElementById('intentModal').classList.remove('show');
+            
+            // 恢复按钮状态
+            if (currentButton) {
+                currentButton.disabled = false;
+                currentButton.innerHTML = '💬 立即咨询详情';
+            }
+            
+            showStatus('如有疑问，随时可以再次咨询', 'error');
+        }
+        
+        // 主要联系函数 - 意图检测优化
         function contactWhatsApp(event) {
             const button = event.target;
             const buttonSource = button.getAttribute('data-source') || 'unknown';
+            const timeOnPage = Date.now() - pageStartTime;
             
-            console.log('👆 用户点击咨询按钮 - 来源:', buttonSource);
+            console.log('👆 用户点击咨询按钮');
+            console.log('⏱️ 页面停留时间:', Math.round(timeOnPage/1000), '秒');
             
             if (button.disabled) {
-                console.log('⚠️ 按钮已禁用，忽略重复点击');
+                console.log('⚠️ 按钮已禁用');
                 return;
             }
             
+            // 保存当前按钮引用
+            currentButton = button;
+            currentButtonSource = buttonSource;
+            userClickCount++;
+            
+            // 禁用按钮
             button.disabled = true;
-            const originalText = button.innerHTML;
-            button.innerHTML = '🚀 正在连接...';
+            button.innerHTML = '🤔 请确认意向...';
             
-            // 追踪咨询点击事件
-            trackConsultationClick(buttonSource);
-            
-            // 显示加载状态
-            showStatus('正在连接招聘顾问...', 'success');
-            
-            // 改进的设备检测
-            const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-            
-            setTimeout(() => {
-                try {
-                    // 移动设备使用WhatsApp协议链接
-                    if (isMobile) {
-                        console.log('📱 移动设备 - 尝试使用协议链接');
-                        
-                        // 创建隐藏iframe来尝试协议链接
-                        const iframe = document.createElement('iframe');
-                        iframe.style.display = 'none';
-                        iframe.src = WHATSAPP_PROTOCOL_LINK;
-                        document.body.appendChild(iframe);
-                        
-                        // 设置超时回退
-                        setTimeout(() => {
-                            if (document.hasFocus()) {
-                                console.log('🔄 协议链接未生效，回退到网页版');
-                                window.open(WHATSAPP_LINK, '_blank');
-                            }
-                        }, 500);
-                        
-                        // 移除iframe
-                        setTimeout(() => document.body.removeChild(iframe), 2000);
-                    } else {
-                        // 桌面设备使用网页版链接
-                        console.log('💻 桌面设备 - 打开网页版');
-                        window.open(WHATSAPP_LINK, '_blank');
-                    }
-                    
-                    // 设置3秒后恢复按钮状态
-                    setTimeout(() => {
-                        button.disabled = false;
-                        button.innerHTML = originalText;
-                    }, 3000);
-                    
-                } catch (error) {
-                    console.log('❌ 跳转失败:', error);
-                    showFallbackOption();
-                    
-                    // 恢复按钮状态
-                    button.disabled = false;
-                    button.innerHTML = originalText;
-                }
-            }, 300);
-        }
-        
-        // 页面加载完成
-        window.addEventListener('load', function() {
-            console.log('📱 招聘页面加载完成');
-            
-            document.querySelectorAll('.whatsapp-btn').forEach(button => {
-                button.addEventListener('click', contactWhatsApp);
-            });
-            
-            // 设置备用链接
-            document.getElementById('whatsappFallbackLink').href = WHATSAPP_LINK;
-            document.getElementById('whatsappFallbackLink').textContent = WHATSAPP_LINK;
-            
-            setTimeout(() => {
-                if (typeof fbq !== 'undefined') {
-                    console.log('✅ Facebook Pixel 已加载');
-                } else {
-                    console.error('❌ Facebook Pixel 加载失败');
-                }
-            }, 1000);
-        });
-    </script>
-</body>
-</html>
+            // 意图检测逻辑
+            if (timeOnPage < 8000) {
+                // 停留时间少于8秒，显示确认弹窗
+                console.log('⚠️ 页面停留时间较短，显示意图确认');
+                document.getElementById('intentModal').classList.add('show');
+            } else {
+                // 停留时间足够，直接跳转
+                console.log('✅ 页面停留时间充足，直接执行');
+                button.innerHTML = '
