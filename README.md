@@ -3,9 +3,622 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>正在为你转接招聘人员</title>
-    
-    <!-- 优化的 Meta Pixel 代码 -->
+    <title>居家行政助理招聘 | 兼职全职均可</title>
+    <meta name="description" content="Marriott Bonvoy Hotels招聘居家行政助理，月薪RM5000-8000+，弹性工作时间，无需经验，免费培训">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 520px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+        }
+
+        .header {
+            margin-bottom: 40px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .company-info {
+            margin-bottom: 25px;
+        }
+
+        .company-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-bottom: 12px;
+            animation: popIn 0.5s ease-out;
+        }
+
+        .company-name {
+            color: #2d3748;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1 {
+            color: #1a202c;
+            margin-bottom: 12px;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .job-title {
+            color: #667eea;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #718096;
+            margin-bottom: 40px;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .job-highlights {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 35px;
+            animation: fadeIn 0.8s 0.2s both;
+        }
+
+        .highlight-item {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            padding: 20px 15px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+
+        .highlight-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .highlight-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .highlight-desc {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 4px;
+        }
+
+        .salary-highlight {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(102, 126, 234, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+        }
+
+        .salary-highlight::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .salary-amount {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .salary-desc {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .cta-section {
+            margin-bottom: 25px;
+            animation: fadeIn 0.8s 0.4s both;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            box-shadow: 0 8px 20px rgba(72, 187, 120, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(72, 187, 120, 0.4);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
+
+        .cta-button:disabled {
+            opacity: 0.7;
+            transform: none;
+            cursor: not-allowed;
+        }
+
+        .urgency-note {
+            background: linear-gradient(135deg, #fed7d7, #fbb6ce);
+            color: #c53030;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-left: 4px solid #e53e3e;
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.5s 0.6s both;
+        }
+
+        .urgency-note::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: urgencyShine 2s infinite;
+        }
+
+        @keyframes urgencyShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .intent-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .intent-modal.show {
+            display: flex;
+        }
+
+        .intent-content {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.5s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: scale(0.8) translateY(-50px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .intent-content h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .intent-content p {
+            color: #718096;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .intent-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .intent-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .intent-btn.primary {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+
+        .intent-btn.secondary {
+            background: #f7fafc;
+            color: #718096;
+            border: 1px solid #e2e8f0;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .status.success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+
+        .status.error {
+            background: #fed7d7;
+            color: #c53030;
+            border: 1px solid #feb2b2;
+        }
+
+        .fallback-container {
+            margin-top: 20px;
+            background: #fefcbf;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #f6e05e;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .fallback-link {
+            display: block;
+            margin-top: 10px;
+            word-break: break-all;
+            color: #744210;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .fallback-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            color: #a0aec0;
+            font-size: 14px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            animation: fadeIn 0.8s 0.8s both;
+        }
+
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            animation: fadeIn 0.8s 0.7s both;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #718096;
+            font-size: 12px;
+            background: #f7fafc;
+            padding: 6px 12px;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .trust-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .live-counter {
+            background: #f0fff4;
+            color: #22543d;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid #68d391;
+            animation: counterPulse 2s infinite;
+        }
+
+        @keyframes counterPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            70% { transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .job-title {
+                font-size: 16px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .company-info {
+                text-align: center;
+            }
+
+            .job-highlights {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .salary-amount {
+                font-size: 28px;
+            }
+
+            .trust-indicators {
+                gap: 8px;
+            }
+
+            .trust-item {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+            
+            .cta-button {
+                padding: 16px 30px;
+                font-size: 16px;
+            }
+
+            .intent-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="company-info">
+                <div class="company-badge">五星级酒店集团</div>
+                <div class="company-name">Marriott Bonvoy Hotels</div>
+            </div>
+            <h1>招聘居家行政助理</h1>
+            <div class="job-title">兼职/全职 • 居家办公 • 弹性时间</div>
+            <p class="subtitle">无需经验，提供完整培训，欢迎宝妈、学生、上班族</p>
+        </div>
+
+        <div class="job-highlights">
+            <div class="highlight-item">
+                <span class="highlight-icon">💰</span>
+                <div class="highlight-text">RM5000-8000+</div>
+                <div class="highlight-desc">月收入范围</div>
+            </div>
+            <div class="highlight-item">
+                <span class="highlight-icon">🏠</span>
+                <div class="highlight-text">居家办公</div>
+                <div class="highlight-desc">无需通勤</div>
+            </div>
+            <div class="highlight-item">
+                <span class="highlight-icon">⏰</span>
+                <div class="highlight-text">3-4小时/天</div>
+                <div class="highlight-desc">弹性工作时间</div>
+            </div>
+            <div class="highlight-item">
+                <span class="highlight-icon">📚</span>
+                <div class="highlight-text">免费培训</div>
+                <div class="highlight-desc">零基础可学</div>
+            </div>
+        </div>
+
+        <div class="live-counter" id="liveCounter">
+            🔥 今日已有 <span id="counterNumber">12</span> 人咨询，剩余名额有限
+        </div>
+
+        <!-- 唯一的CTA按钮 -->
+        <div class="cta-section">
+            <button class="cta-button whatsapp-btn" data-source="highlights-section">
+                💬 立即咨询详情
+            </button>
+        </div>
+
+        <div class="salary-highlight">
+            <div class="salary-amount">RM 6,500</div>
+            <div class="salary-desc">平均月收入 • 多劳多得 • 上不封顶</div>
+        </div>
+
+        <div class="urgency-note">
+            🔥 限时招聘：本月仅招收15名，已有8人确认面试，剩余名额有限！
+        </div>
+
+        <div class="trust-indicators">
+            <div class="trust-item">
+                <span>🏆</span>
+                <span>五星酒店</span>
+            </div>
+            <div class="trust-item">
+                <span>🛡️</span>
+                <span>正规企业</span>
+            </div>
+            <div class="trust-item">
+                <span>⭐</span>
+                <span>真实岗位</span>
+            </div>
+            <div class="trust-item">
+                <span>🔒</span>
+                <span>信息保密</span>
+            </div>
+            <div class="trust-item">
+                <span>✅</span>
+                <span>免费咨询</span>
+            </div>
+        </div>
+
+        <div class="status" id="status"></div>
+        
+        <div class="fallback-container" id="fallbackContainer">
+            <p>您的浏览器阻止了自动跳转，请手动点击下方链接：</p>
+            <a href="#" class="fallback-link" id="whatsappFallbackLink" target="_blank"></a>
+        </div>
+
+        <div class="footer">
+            <p>点击按钮将通过WhatsApp与我们的专业招聘顾问联系</p>
+            <p style="margin-top: 8px; font-size: 12px;">我们承诺：100%免费咨询，不收取任何费用</p>
+        </div>
+    </div>
+
+    <!-- 意图确认弹窗 -->
+    <div class="intent-modal" id="intentModal">
+        <div class="intent-content">
+            <h3>📞 确认咨询意向</h3>
+            <p>您确定要了解这个工作机会吗？我们的招聘顾问将为您详细介绍岗位信息和薪资待遇。</p>
+            <div class="intent-buttons">
+                <button class="intent-btn primary" onclick="confirmIntent()">确定咨询</button>
+                <button class="intent-btn secondary" onclick="cancelIntent()">再想想</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Facebook Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -15,298 +628,227 @@
         t.src=v;s=b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
-        
-        // 初始化Pixel并立即触发Contact事件
-        fbq('init', '623059780216649', {
-            em: getHashedEmail(),  // 高级匹配
-            external_id: getClientId()  // 客户端ID
-        });
-        
-        // 立即触发Contact事件（在页面加载前）
-        fbq('track', 'Contact', {
-            content_name: 'WhatsApp招聘咨询',
-            content_category: '自动跳转'
-        });
-        
-        // 生成唯一事件ID（用于CAPI）
-        function generateEventId() {
-            return 'event_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        }
-        
-        // 获取客户端ID（简化版）
-        function getClientId() {
-            if(localStorage.getItem('client_id')) {
-                return localStorage.getItem('client_id');
-            }
-            const id = 'cid_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-            localStorage.setItem('client_id', id);
-            return id;
-        }
-        
-        // 获取哈希邮箱（示例）
-        function getHashedEmail() {
-            // 实际应用中应从表单获取并哈希处理
-            return null; // 示例中留空
-        }
+
+        // Facebook Pixel 初始化
+        fbq('init', '623059780216649'); 
+        fbq('track', 'PageView');
     </script>
     <noscript>
         <img height="1" width="1" style="display:none" 
-             src="https://www.facebook.com/tr?id=623059780216649&ev=Contact&noscript=1"/>
+             src="https://www.facebook.com/tr?id=623059780216649&ev=PageView&noscript=1"/>
     </noscript>
-    <!-- End Meta Pixel 代码 -->
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #1e5799, #207cca);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            color: white;
-        }
-        
-        .container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        h1 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .countdown {
-            font-size: 64px;
-            font-weight: bold;
-            margin: 30px 0;
-            color: #ffcc00;
-            text-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
-        }
-        
-        .consent-box {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            padding: 25px;
-            margin: 25px 0;
-            text-align: left;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            margin-top: 15px;
-        }
-        
-        input[type="checkbox"] {
-            width: 24px;
-            height: 24px;
-            margin-right: 15px;
-            cursor: pointer;
-        }
-        
-        label {
-            font-size: 18px;
-            cursor: pointer;
-        }
-        
-        .btn {
-            background: #25D366;
-            color: white;
-            border: none;
-            padding: 16px 40px;
-            font-size: 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 25px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            display: inline-block;
-        }
-        
-        .btn:disabled {
-            background: #555;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-        
-        .btn:hover:not(:disabled) {
-            background: #128C7E;
-            transform: translateY(-3px);
-            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .logo {
-            width: 80px;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-        }
-        
-        .status {
-            margin-top: 25px;
-            font-size: 18px;
-            color: #ffcc00;
-        }
-        
-        .instructions {
-            margin-top: 30px;
-            font-size: 16px;
-            line-height: 1.6;
-            color: #ddd;
-        }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 25px;
-            }
-            
-            h1 {
-                font-size: 24px;
-            }
-            
-            .countdown {
-                font-size: 48px;
-            }
-            
-            .btn {
-                padding: 14px 30px;
-                font-size: 18px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <svg class="logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.5.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.24-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.016a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.285A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
-        </svg>
-        
-        <h1>正在为你转接招聘人员</h1>
-        
-        <div class="countdown" id="countdown">1</div>
-        
-        <div class="consent-box">
-            <p>请仔细阅读并同意以下条款：</p>
-            <ul style="margin-left: 20px; margin-top: 10px;">
-                <li>我确认需要咨询工作</li>
-                <li>我同意通过 WhatsApp 接收后续消息</li>
-            </ul>
-            
-            <div class="checkbox-container">
-                <input type="checkbox" id="consentCheckbox">
-                <label for="consentCheckbox">我确认已阅读并同意以上条款</label>
-            </div>
-        </div>
-        
-        <button class="btn" id="continueBtn" disabled>同意并继续</button>
-        
-        <div class="status" id="statusText">请勾选同意框以继续</div>
-        
-        <div class="instructions">
-            <p><strong>提示：</strong>页面将在倒计时结束后自动跳转，或点击上方按钮立即跳转。</p>
-            <p>如遇问题，请确保浏览器未阻止弹出窗口。</p>
-        </div>
-    </div>
 
     <script>
-        // 配置：设置您的 WhatsApp 链接
-        const WHATSAPP_LINK = "https://wa.link/qiuzhijia";
+        // 配置
+        const WHATSAPP_LINK = 'https://wa.link/qiuzhijia';
+        const PHONE_NUMBER = '+601163711596';
+        const WHATSAPP_PROTOCOL_LINK = `whatsapp://send?phone=${PHONE_NUMBER}`;
         
-        // 获取DOM元素
-        const countdownElement = document.getElementById('countdown');
-        const consentCheckbox = document.getElementById('consentCheckbox');
-        const continueBtn = document.getElementById('continueBtn');
-        const statusText = document.getElementById('statusText');
+        // 状态管理
+        let hasTrackedLead = false;
+        let userClickCount = 0;
+        let pageStartTime = Date.now();
+        let currentButton = null;
+        let currentButtonSource = null;
         
-        let countdown = 1;
-        let countdownInterval;
-        let hasRedirected = false;
-        
-        // 更新倒计时显示
-        function updateCountdown() {
-            countdownElement.textContent = countdown;
+        // 实时计数器更新
+        function updateLiveCounter() {
+            const counterElement = document.getElementById('counterNumber');
+            const baseCount = 12;
+            const randomIncrease = Math.floor(Math.random() * 3); // 0-2的随机增长
+            const newCount = baseCount + randomIncrease;
             
-            if (countdown <= 0) {
-                clearInterval(countdownInterval);
-                redirectToWhatsApp();
-            } else {
-                countdown--;
+            if (counterElement) {
+                counterElement.textContent = newCount;
             }
         }
         
-        // 跳转到 WhatsApp
-        function redirectToWhatsApp() {
-            if (hasRedirected) return;
-            hasRedirected = true;
-            
-            statusText.textContent = "正在跳转到 WhatsApp...";
-            
-            try {
-                // 尝试在新标签页打开
-                const newWindow = window.open(WHATSAPP_LINK, '_blank');
-                
-                if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-                    // 如果弹出窗口被阻止，改为当前页跳转
-                    window.location.href = WHATSAPP_LINK;
-                } else {
-                    // 关闭当前页面
-                    setTimeout(() => {
-                        window.close();
-                    }, 1000);
-                }
-            } catch (e) {
-                // 出错时直接跳转
-                window.location.href = WHATSAPP_LINK;
-            }
-        }
+        // 每30秒更新一次计数器
+        setInterval(updateLiveCounter, 30000);
         
-        // 初始化页面
-        function initPage() {
-            // 检查本地存储中是否有同意记录
-            if (localStorage.getItem('wa_consent') === 'true') {
-                redirectToWhatsApp();
+        // 延迟追踪函数 - 高质量转化
+        function trackConsultationClick(buttonSource) {
+            console.log('🎯 延迟追踪咨询点击 - 来源:', buttonSource);
+            
+            // 防止重复追踪
+            if (hasTrackedLead) {
+                console.log('⚠️ 已追踪过Lead，跳过');
                 return;
             }
             
-            // 设置倒计时
-            countdownInterval = setInterval(updateCountdown, 1000);
+            if (typeof fbq === 'undefined') {
+                console.error('❌ Facebook Pixel 未加载');
+                return;
+            }
             
-            // 监听复选框变化
-            consentCheckbox.addEventListener('change', function() {
-                continueBtn.disabled = !this.checked;
-                statusText.textContent = this.checked ? 
-                    "已同意 - 点击按钮立即跳转" : 
-                    "请勾选同意框以继续";
-            });
-            
-            // 监听按钮点击
-            continueBtn.addEventListener('click', function() {
-                // 保存同意状态
-                localStorage.setItem('wa_consent', 'true');
-                redirectToWhatsApp();
-            });
+            try {
+                // 只有确认意图后才发送Lead事件
+                fbq('track', 'Lead', {
+                    content_name: 'WhatsApp联系',
+                    content_category: '高质量咨询',
+                    value: 20.00,
+                    currency: 'USD'
+                });
+                
+                hasTrackedLead = true;
+                console.log('✅ 高质量Lead事件已发送');
+                
+                // 发送Contact作为补充数据
+                fbq('track', 'Contact', {
+                    content_name: 'WhatsApp确认点击',
+                    content_category: '真实意图'
+                });
+                
+            } catch (error) {
+                console.error('❌ 追踪事件失败:', error);
+            }
         }
         
-        // 页面加载完成后初始化
-        window.addEventListener('DOMContentLoaded', initPage);
-    </script>
-</body>
-</html>
+        // 显示状态信息
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+            statusDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 3000);
+        }
+        
+        // 显示备用方案
+        function showFallbackOption() {
+            showStatus('跳转失败，请手动点击下方链接', 'error');
+            
+            const fallbackContainer = document.getElementById('fallbackContainer');
+            const fallbackLink = document.getElementById('whatsappFallbackLink');
+            
+            fallbackLink.href = WHATSAPP_LINK;
+            fallbackLink.textContent = WHATSAPP_LINK;
+            fallbackContainer.style.display = 'block';
+        }
+        
+        // 执行WhatsApp跳转
+        function executeWhatsAppRedirect() {
+            const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            try {
+                if (isMobile) {
+                    console.log('📱 移动设备 - 尝试协议链接');
+                    
+                    // 创建隐藏iframe尝试协议链接
+                    const iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = WHATSAPP_PROTOCOL_LINK;
+                    document.body.appendChild(iframe);
+                    
+                    // 设置回退机制
+                    setTimeout(() => {
+                        if (document.hasFocus()) {
+                            console.log('🔄 回退到网页版');
+                            window.open(WHATSAPP_LINK, '_blank');
+                        }
+                    }, 1000);
+                    
+                    // 清理iframe
+                    setTimeout(() => {
+                        if (document.body.contains(iframe)) {
+                            document.body.removeChild(iframe);
+                        }
+                    }, 3000);
+                } else {
+                    console.log('💻 桌面设备 - 网页版');
+                    window.open(WHATSAPP_LINK, '_blank');
+                }
+                
+                // 延迟3秒后追踪Lead事件（确保用户真的进入了WhatsApp）
+                setTimeout(() => {
+                    trackConsultationClick(currentButtonSource);
+                }, 3000);
+                
+            } catch (error) {
+                console.log('❌ 跳转失败:', error);
+                showFallbackOption();
+            }
+        }
+        
+        // 确认意图
+        function confirmIntent() {
+            console.log('✅ 用户确认咨询意图');
+            
+            // 隐藏弹窗
+            document.getElementById('intentModal').classList.remove('show');
+            
+            // 显示状态
+            showStatus('正在连接招聘顾问...', 'success');
+            
+            // 执行跳转
+            executeWhatsAppRedirect();
+            
+            // 恢复按钮状态
+            if (currentButton) {
+                setTimeout(() => {
+                    currentButton.disabled = false;
+                    currentButton.innerHTML = '💬 立即咨询详情';
+                }, 3000);
+            }
+        }
+        
+        // 取消意图
+        function cancelIntent() {
+            console.log('❌ 用户取消咨询');
+            
+            // 追踪取消行为
+            try {
+                fbq('track', 'ViewContent', {
+                    content_name: '取消咨询意图',
+                    content_category: '用户犹豫'
+                });
+            } catch (error) {
+                console.log('取消追踪失败:', error);
+            }
+            
+            // 隐藏弹窗
+            document.getElementById('intentModal').classList.remove('show');
+            
+            // 恢复按钮状态
+            if (currentButton) {
+                currentButton.disabled = false;
+                currentButton.innerHTML = '💬 立即咨询详情';
+            }
+            
+            showStatus('如有疑问，随时可以再次咨询', 'error');
+        }
+        
+        // 主要联系函数 - 意图检测优化
+        function contactWhatsApp(event) {
+            const button = event.target;
+            const buttonSource = button.getAttribute('data-source') || 'unknown';
+            const timeOnPage = Date.now() - pageStartTime;
+            
+            console.log('👆 用户点击咨询按钮');
+            console.log('⏱️ 页面停留时间:', Math.round(timeOnPage/1000), '秒');
+            
+            if (button.disabled) {
+                console.log('⚠️ 按钮已禁用');
+                return;
+            }
+            
+            // 保存当前按钮引用
+            currentButton = button;
+            currentButtonSource = buttonSource;
+            userClickCount++;
+            
+            // 禁用按钮
+            button.disabled = true;
+            button.innerHTML = '🤔 请确认意向...';
+            
+            // 意图检测逻辑
+            if (timeOnPage < 8000) {
+                // 停留时间少于8秒，显示确认弹窗
+                console.log('⚠️ 页面停留时间较短，显示意图确认');
+                document.getElementById('intentModal').classList.add('show');
+            } else {
+                // 停留时间足够，直接跳转
+                console.log('✅ 页面停留时间充足，直接执行');
+                button.innerHTML = '
